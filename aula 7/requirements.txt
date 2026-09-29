@@ -1,0 +1,5 @@
+FastAPI # Framework que vamos utilizar para criar a API
+uvicorn # Servidor local
+SQLAlchemy # Traduz os comandos de python para SQL
+psycopg2-binary # Banco de dados PostgreSQL
+pydantic # Validação das informações

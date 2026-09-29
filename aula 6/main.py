@@ -40,7 +40,7 @@ def read_students(db: Session = Depends(get_db)):
 
     # Como se fosse SQL. O alchemy traduz. Pega o db, BUSQUE nos (parâmetros) todas as ocorrências
     students = db.query(models.Estudante).all()
-    return students
+    return students  
 
 @app.post('/matriculas/', response_model=schemas.MatriculaResponse)
 def create_matricula(matricula: schemas.MatriculaCreate, db: Session = Depends(get_db)):
