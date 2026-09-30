@@ -43,3 +43,29 @@ def listar_estudantes(db: Session=Depends(get_db)): # Função get preciso apena
         .all()
     )
     return estudantes
+
+@app.post('/professores/', response_model=schemas.Professor)
+def criar_professor(
+    professor: schemas.CreateProfessor,
+    db: Session=Depends(get_db)
+):
+    db_professor = models.Professor(
+        nome=professor.nome
+    )
+    if professor.disciplina is not None:
+        db_professor.disciplina = models.Disciplina(
+            **professor.disciplina.dict()
+        )
+    db.add(db_professor)
+    db.commit()
+    db.refresh(db_professor)
+    return db_professor
+
+@app.get('/professores/', response_model=List[schemas.Professor])
+def listar_professores(db: Session=Depends(get_db)):
+    professores = (
+        db.query(models.Professor)
+        .options(joinedload(models.Professor.disciplina))
+        .all()
+    )
+    return professores

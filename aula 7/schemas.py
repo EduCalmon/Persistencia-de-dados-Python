@@ -37,3 +37,27 @@ class EstudanteCreate(BaseModel):
     nome: str
     email: str
     perfil: PerfilCreate
+
+
+
+class Disciplina(BaseModel):
+    id: int
+    nome: str
+
+    class Config:
+            from_attributes = True
+
+class CreateDisciplina(BaseModel):
+    nome: str
+
+class Professor(BaseModel):
+    id: int
+    nome: str
+    disciplina: Optional[Disciplina] = None
+
+    class Config:
+        from_attributes = True
+
+class CreateProfessor(BaseModel):
+    nome: str
+    disciplina: Optional[CreateDisciplina] = None

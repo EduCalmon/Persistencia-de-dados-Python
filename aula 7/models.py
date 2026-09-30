@@ -24,4 +24,20 @@ class Perfil(Base):
         back_populates='perfil',
         uselist=False)
 
-    
+class Professor(Base):
+    __tablename__ = 'professores'
+    id = Column(Integer, primary_key=True, index=True)
+    nome = Column(String)
+    disciplina = relationship('Disciplina', back_populates='professor',
+                              uselist=False,
+                              cascade='all, delete-orphan')
+
+class Disciplina(Base):
+    __tablename__ = 'disciplinas'
+
+    id = Column(Integer, primary_key=True, index=True)
+    nome = Column(String)
+    professor_id = Column(Integer, ForeignKey('professores.id'),
+                          unique=True)
+
+    professor = relationship('Professor', back_populates='disciplina', uselist=False)
